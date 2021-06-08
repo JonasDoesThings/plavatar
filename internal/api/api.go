@@ -12,7 +12,7 @@ import (
 	"hash/fnv"
 	"net/http"
 	"os"
-	"plavatar/pkg/caching"
+	"plavatar/internal/caching"
 	"plavatar/pkg/zaputils"
 	"strconv"
 )
