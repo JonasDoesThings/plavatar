@@ -6,7 +6,7 @@ A stateless microservice that returns **pla**ceholder **avatar**s (=plavatars).
 
 ## API Endpoints
 
-* `baseurl:port/smiley/<size>/<name>`
+* `baseurl:port/laughing/<size>/<name>`
 * `baseurl:port/gradient/<size>/<name>`
 * `baseurl:port/pixel/<size>/<name>`
 * `baseurl:port/marble/<size>/<name>`
