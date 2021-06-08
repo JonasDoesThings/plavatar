@@ -13,7 +13,7 @@ func (server *Server) routes() {
 	server.echoRouter.GET("/marble/:size/:name", server.HandleGetMarbleAvatar())
 	server.echoRouter.GET("/marble/:size/", server.HandleGetMarbleAvatar())
 	server.echoRouter.GET("/marble/:size", server.HandleGetMarbleAvatar())
-	server.echoRouter.GET("/smiley/:size/:name", server.HandleGetCutieAvatar())
-	server.echoRouter.GET("/smiley/:size/", server.HandleGetCutieAvatar())
-	server.echoRouter.GET("/smiley/:size", server.HandleGetCutieAvatar())
+	server.echoRouter.GET("/laughing/:size/:name", server.HandleGetLaughingAvatar())
+	server.echoRouter.GET("/laughing/:size/", server.HandleGetLaughingAvatar())
+	server.echoRouter.GET("/laughing/:size", server.HandleGetLaughingAvatar())
 }

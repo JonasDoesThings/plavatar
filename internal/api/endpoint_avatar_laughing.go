@@ -9,7 +9,7 @@ import (
 	"plavatar/internal/utils"
 )
 
-func (server *Server) HandleGetCutieAvatar() echo.HandlerFunc {
+func (server *Server) HandleGetLaughingAvatar() echo.HandlerFunc {
 	return func(context echo.Context) error {
 		imageContext, err := server.getAvatarImageContext(context)
 		if err != nil {
