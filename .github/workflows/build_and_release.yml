@@ -1,0 +1,46 @@
+name: Build And Release
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build_and_release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.16
+
+    - name: Test
+      run: go test -v -cover ./...
+
+    - name: Build
+      run: |
+        mkdir artifacts
+        CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -o artifacts/ plavatar/cmd/plavatar
+
+    - name: Release Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: plavatar
+        path: artifacts/plavatar
+
+    - name: Authenticate Docker
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Release Docker
+      uses: docker/build-push-action@v2.5.0
+      with:
+        push: true
+        tags: ghcr.io/${{ github.repository }}
+        context: .
