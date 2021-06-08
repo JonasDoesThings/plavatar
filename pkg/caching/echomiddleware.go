@@ -6,6 +6,7 @@ import (
 	"github.com/patrickmn/go-cache"
 	"io"
 	"net/http"
+	"strings"
 )
 
 type bodyDumpResponseWriter struct {
@@ -44,7 +45,8 @@ func CacheMiddleware(avatarCache *cache.Cache) echo.MiddlewareFunc {
 				context.Error(err)
 			}
 
-			if writer.statusCode == http.StatusOK && context.Response().Header().Get("Content-Type") == "image/png" {
+			// Check if the response is valid, AND if the response has a provided seed (:name). Don't cache random generated ones
+			if writer.statusCode == http.StatusOK && context.Response().Header().Get("Content-Type") == "image/png" && strings.Contains(context.Path(), ":name") {
 				avatarCache.SetDefault(context.Request().RequestURI, resBody.Bytes())
 			}
 
