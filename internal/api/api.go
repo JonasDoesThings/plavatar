@@ -49,9 +49,9 @@ func StartServer() {
 
 	echoRouter := echo.New()
 	echoRouter.HideBanner = true
+	echoRouter.Pre(middleware.RemoveTrailingSlash())
 	echoRouter.Use(zaputils.ZapLogger(logger))
 	echoRouter.Use(middleware.Recover())
-	echoRouter.Use(middleware.RemoveTrailingSlash())
 
 	if viper.GetBool("webserver.gzip") {
 		echoRouter.Use(middleware.GzipWithConfig(middleware.GzipConfig{
