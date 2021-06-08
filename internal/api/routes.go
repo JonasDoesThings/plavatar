@@ -11,4 +11,6 @@ func (server *Server) routes() {
 	server.echoRouter.GET("/marble/:size", server.HandleGetMarbleAvatar())
 	server.echoRouter.GET("/laughing/:size/:name", server.HandleGetLaughingAvatar())
 	server.echoRouter.GET("/laughing/:size", server.HandleGetLaughingAvatar())
+	server.echoRouter.GET("/smiley/:size/:name", server.HandleGetSmileyAvatar())
+	server.echoRouter.GET("/smiley/:size", server.HandleGetSmileyAvatar())
 }
