@@ -2,18 +2,15 @@ package api
 
 import (
 	"bytes"
-	"fmt"
 	"github.com/fogleman/gg"
 	"github.com/labstack/echo/v4"
 	"math/rand"
 	"net/http"
 	"plavatar/internal/utils"
-	"time"
 )
 
 func (server *Server) HandleGetCutieAvatar() echo.HandlerFunc {
 	return func(context echo.Context) error {
-		start := time.Now()
 		imageContext, err := server.getAvatarImageContext(context)
 		if err != nil {
 			return err
@@ -21,7 +18,6 @@ func (server *Server) HandleGetCutieAvatar() echo.HandlerFunc {
 		if imageContext == nil {
 			return nil
 		}
-		fmt.Printf("took %s for getting image context\n", time.Since(start))
 
 		size := float64(imageContext.Image().Bounds().Max.X)
 
@@ -54,15 +50,11 @@ func (server *Server) HandleGetCutieAvatar() echo.HandlerFunc {
 		imageContext.DrawEllipticalArc(size/2, size/2+float64(size)*(1.0/6), size/4, size/4, gg.Radians(180+mouthRotationOffset), gg.Radians(0))
 		imageContext.Fill()
 
-		fmt.Printf("took %s for generating image\n", time.Since(start))
-		start = time.Now()
-
 		imageBuffer := bytes.NewBuffer([]byte{})
 		if imageContext.EncodePNG(imageBuffer) != nil {
 			server.logger.Error("error encoding image to buffer", err)
 			return context.Blob(http.StatusInternalServerError, "application/json", []byte(`{"error": "error encoding image to buffer"}`))
 		}
-		fmt.Printf("took %s for buffering image\n", time.Since(start))
 		return context.Blob(http.StatusOK, "image/png", imageBuffer.Bytes())
 	}
 }
