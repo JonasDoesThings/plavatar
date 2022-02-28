@@ -37,6 +37,12 @@ func InitLogger() *zap.SugaredLogger {
 		fmt.Println(err)
 	}
 
-	defer rawLogger.Sync()
+	// sync rawLogger and handle possible errors
+	defer func(rawLogger *zap.Logger) {
+		err := rawLogger.Sync()
+		if err != nil {
+			fmt.Println(err)
+		}
+	}(rawLogger)
 	return rawLogger.Sugar()
 }
