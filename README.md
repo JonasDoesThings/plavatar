@@ -15,7 +15,7 @@ Without name:
 * `baseurl:port/laughing/<size>` and so on
 
 ## Parameters
-* `size` the image's size in pixels. has to fulfill 16 <= size <= 1024
+* `size` the image's size in pixels. has to be min 16, max 1024
 * `name` **optional**, the rng seed to use. given the same name the same picture will be returned
 
 ## Deployment
