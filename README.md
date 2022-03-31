@@ -16,7 +16,7 @@ Without name:
 
 ## Parameters
 * `size` the image's size in pixels. has to be min 16, max 1024
-* `name` **optional**, the rng seed to use. given the same name the same picture will be returned
+* `name` **optional**, the random number generator seed to use. given the same name the same picture will be returned
 
 ## Deployment
 By the default the program looks for a config file at `<running_folder>/config/plavatar.json`. If you want to use an
