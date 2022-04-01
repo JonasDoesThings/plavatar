@@ -13,4 +13,6 @@ func (server *Server) routes() {
 	server.echoRouter.GET("/laughing/:size", server.HandleGetLaughingAvatar())
 	server.echoRouter.GET("/smiley/:size/:name", server.HandleGetSmileyAvatar())
 	server.echoRouter.GET("/smiley/:size", server.HandleGetSmileyAvatar())
+	server.echoRouter.GET("/happy/:size/:name", server.HandleGetHappyAvatar())
+	server.echoRouter.GET("/happy/:size", server.HandleGetHappyAvatar())
 }
