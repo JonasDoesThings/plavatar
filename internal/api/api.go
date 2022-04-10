@@ -54,7 +54,6 @@ func StartServer() {
 
 	echoRouter := echo.New()
 	echoRouter.HideBanner = true
-	echoRouter.Pre(middleware.RemoveTrailingSlash())
 	echoRouter.Use(zaputils.ZapLogger(logger))
 	echoRouter.Use(middleware.Recover())
 
