@@ -56,3 +56,5 @@ a config in the `config/` folder, nor you supply a path with `--config` the defa
 ## Testing
 To generate a self-signed certificate for testing purposes you can
 use `openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out testing.crt -keyout testing.key`
+
+For benchmarking, you can use the provided [k6 script](https://github.com/grafana/k6) under `scripts/k6_plavatar_benchmark.js`.
