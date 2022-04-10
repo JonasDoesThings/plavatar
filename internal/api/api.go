@@ -22,6 +22,8 @@ type Server struct {
 	echoRouter *echo.Echo
 }
 
+var minSize, maxSize int
+
 func StartServer() {
 	logger := zaputils.InitLogger()
 
@@ -46,6 +48,9 @@ func StartServer() {
 			logger.Warn("no config found, using default config!")
 		}
 	}
+
+	minSize = viper.GetInt("dimensions.min")
+	maxSize = viper.GetInt("dimensions.max")
 
 	echoRouter := echo.New()
 	echoRouter.HideBanner = true
@@ -98,7 +103,7 @@ func (server *Server) getAvatarImageContext(context echo.Context) (*gg.Context, 
 		return nil, context.Blob(http.StatusBadRequest, "application/json", []byte(`{"error": "invalid size"}`))
 	}
 
-	if size < 16 || size > 1024 {
+	if size < minSize || size > maxSize {
 		return nil, context.Blob(http.StatusBadRequest, "application/json", []byte(`{"error": "invalid size"}`))
 	}
 

@@ -6,6 +6,10 @@ import (
 )
 
 func main() {
+	viper.SetDefault("dimensions", map[string]interface{}{
+		"min": 128,
+		"max": 512,
+	})
 	viper.SetDefault("webserver", map[string]interface{}{
 		"gzip": false,
 		"http": map[string]interface{}{
