@@ -27,6 +27,10 @@ a config in the `config/` folder, nor you supply a path with `--config` the defa
 ## Default configuration file
 ```json
 {
+  "dimensions": {
+    "min": 128,
+    "max": 512
+  },
   "webserver": {
     "gzip": false,
     "http": {
