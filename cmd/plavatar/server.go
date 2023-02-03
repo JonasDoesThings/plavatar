@@ -11,7 +11,7 @@ func main() {
 		"max": 512,
 	})
 	viper.SetDefault("webserver", map[string]interface{}{
-		"gzip": false,
+		"gzip": true,
 		"http": map[string]interface{}{
 			"enabled": true,
 			"host":    "0.0.0.0",
