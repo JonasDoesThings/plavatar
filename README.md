@@ -25,6 +25,7 @@ alternative location you can override this behaviour using the argument `--confi
 a config in the `config/` folder, nor you supply a path with `--config` the default configuration will be used.
 
 ## Default configuration file
+
 ```json
 {
   "dimensions": {
@@ -49,6 +50,14 @@ a config in the `config/` folder, nor you supply a path with `--config` the defa
   "caching": {
     "enabled": true,
     "ttl": "8h"
+  },
+  "metrics": {
+    "enabled": false,
+    "auth": {
+      "enabled": true,
+      "username": "",
+      "password": ""
+    }
   }
 }
 ```
