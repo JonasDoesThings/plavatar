@@ -38,9 +38,14 @@ jobs:
         username: ${{ github.repository_owner }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Lowercase Repository Identifiers
+      run: |
+        echo IMAGE_REPOSITORY=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]') >> $GITHUB_ENV
+        echo IMAGE_TAG=$(echo ${{ github.ref }} | tr '[:upper:]' '[:lower:]' | awk '{split($0,a,"/"); print a[3]}') >> $GITHUB_ENV
+
     - name: Release Docker
       uses: docker/build-push-action@v2.5.0
       with:
         push: true
-        tags: ghcr.io/${{ github.repository }}
+        tags: ghcr.io/${{ env.IMAGE_REPOSITORY }}
         context: .
