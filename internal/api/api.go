@@ -75,6 +75,10 @@ func StartServer() {
 	}
 	apiServer.routes()
 
+	if viper.GetBool("metrics.enabled") {
+		apiServer.enablePrometheus()
+	}
+
 	if viper.GetBool("webserver.https.enabled") {
 		go func() {
 			err := echoRouter.StartTLS(viper.GetString("webserver.https.host")+":"+viper.GetString("webserver.https.port"), viper.GetString("webserver.https.cert"), viper.GetString("webserver.https.key"))
