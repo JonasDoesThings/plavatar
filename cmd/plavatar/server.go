@@ -25,6 +25,14 @@ func main() {
 			"key":     "testing.key",
 		},
 	})
+	viper.SetDefault("metrics", map[string]interface{}{
+		"enabled": true,
+		"auth": map[string]interface{}{
+			"enabled":  true,
+			"username": "test",
+			"password": "tg3opjti03erqwj0",
+		},
+	})
 	viper.SetDefault("caching", map[string]interface{}{
 		"enabled": true,
 		"ttl":     "8h",
