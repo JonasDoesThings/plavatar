@@ -8,7 +8,7 @@ import (
 type logObject struct {
 	Status    int
 	Method    string
-	Uri       string
+	URI       string
 	IP        string
 	UserAgent string
 }
@@ -27,7 +27,7 @@ func ZapLogger(log *zap.SugaredLogger) echo.MiddlewareFunc {
 			logMessage := logObject{
 				Status:    res.Status,
 				Method:    req.Method,
-				Uri:       req.RequestURI,
+				URI:       req.RequestURI,
 				IP:        c.RealIP(),
 				UserAgent: req.UserAgent(),
 			}
