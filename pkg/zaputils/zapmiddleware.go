@@ -6,11 +6,11 @@ import (
 )
 
 type logObject struct {
-	Status    int
 	Method    string
 	URI       string
 	IP        string
 	UserAgent string
+	Status    int
 }
 
 func ZapLogger(log *zap.SugaredLogger) echo.MiddlewareFunc {
