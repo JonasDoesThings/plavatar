@@ -3,6 +3,7 @@ package zaputils
 import (
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
+	"net/http"
 )
 
 type logObject struct {
@@ -33,11 +34,11 @@ func ZapLogger(log *zap.SugaredLogger) echo.MiddlewareFunc {
 			}
 
 			switch {
-			case res.Status >= 500:
+			case res.Status >= http.StatusInternalServerError:
 				log.Error(logMessage)
-			case res.Status >= 400:
+			case res.Status >= http.StatusBadRequest:
 				log.Info(logMessage)
-			case res.Status >= 300:
+			case res.Status >= http.StatusMultipleChoices:
 				log.Info(logMessage)
 			default:
 				log.Info(logMessage)
