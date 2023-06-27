@@ -8,7 +8,7 @@ import (
 func main() {
 	viper.SetDefault("dimensions", map[string]interface{}{
 		"min": 128,
-		"max": 512,
+		"max": 1024,
 	})
 	viper.SetDefault("webserver", map[string]interface{}{
 		"gzip": true,
