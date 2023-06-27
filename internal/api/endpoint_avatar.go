@@ -31,7 +31,7 @@ func (server *Server) HandleGetAvatar(generatorFunc func(canvas *svg.SVG, rng *r
 		}
 
 		imageSize := server.getSizeFromRequest(context)
-		if imageSize == -1 {
+		if imageSize < 1 {
 			return context.Blob(http.StatusBadRequest, "application/json", []byte(`{"error": "invalid size"}`))
 		}
 
