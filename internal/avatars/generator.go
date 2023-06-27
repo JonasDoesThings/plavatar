@@ -5,6 +5,7 @@ import (
 	svg "github.com/ajstarks/svgo"
 	"github.com/srwiley/oksvg"
 	"github.com/srwiley/rasterx"
+	"github.com/srwiley/scanFT"
 	"golang.org/x/image/draw"
 	"image"
 	"image/png"
@@ -50,9 +51,7 @@ func (generator *Generator) RasterizeSVGToPNG(svg io.Reader, imageSize int) (*by
 
 	icon.SetTarget(0, 0, CanvasSize, CanvasSize)
 	rgba := image.NewRGBA(image.Rect(0, 0, CanvasSize, CanvasSize))
-	scanner := rasterx.NewScannerGV(CanvasSize, CanvasSize, rgba, rgba.Bounds())
-	icon.Draw(rasterx.NewDasher(CanvasSize, CanvasSize, scanner), 1)
-	//icon.Draw(rasterx.NewDasher(imageSize, imageSize, scanFT.NewScannerFT(imageSize, imageSize, scanFT.NewRGBAPainter(rgba))), 1)
+	icon.Draw(rasterx.NewDasher(imageSize, imageSize, scanFT.NewScannerFT(imageSize, imageSize, scanFT.NewRGBAPainter(rgba))), 1)
 
 	if imageSize != CanvasSize {
 		scaledOutput := image.NewRGBA(image.Rect(0, 0, imageSize, imageSize))
