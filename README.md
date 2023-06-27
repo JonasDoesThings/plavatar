@@ -15,9 +15,18 @@ A stateless microservice that returns **pla**ceholder **avatar**s (=plavatars).
 Without name:
 * `baseurl:port/laughing/<size>` and so on
 
+With query params:
+* `baseurl:port/laughing/<size>/<name>?format=svg`
+* `baseurl:port/laughing/<size>/<name>?format=svg&shape=square`
+* `baseurl:port/laughing/<size>/<name>?shape=square` and so on
+
 ## Parameters
 * `size` the image's size in pixels. has to be min 16, max 1024
 * `name` **optional**, the random number generator seed to use. given the same name the same picture will be returned
+### Query Params
+* `format`**optional**, either png (default) or svg. svg returns the raw svg
+* `shape` **optional**, either circle (default) or square.
+* 
 
 ## Deployment
 By the default the program looks for a config file at `<running_folder>/config/plavatar.json`. If you want to use an
