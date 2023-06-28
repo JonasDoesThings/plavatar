@@ -3,7 +3,7 @@ name: Build And Release
 on:
   push:
     branches:
-      - 'develop'
+      - 'next'
 
 jobs:
   build_and_release_nightly:
