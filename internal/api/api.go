@@ -3,23 +3,24 @@ package api
 import (
 	"bufio"
 	"flag"
-	"github.com/fogleman/gg"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/patrickmn/go-cache"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"hash/fnv"
-	"net/http"
+	"math/rand"
 	"os"
+	"plavatar/internal/avatars"
 	"plavatar/internal/caching"
 	"plavatar/pkg/zaputils"
 	"strconv"
 )
 
 type Server struct {
-	logger     *zap.SugaredLogger
-	echoRouter *echo.Echo
+	logger          *zap.SugaredLogger
+	echoRouter      *echo.Echo
+	avatarGenerator *avatars.Generator
 }
 
 var minSize, maxSize int
@@ -70,8 +71,9 @@ func StartServer() {
 	}
 
 	apiServer := Server{
-		logger:     logger,
-		echoRouter: echoRouter,
+		logger:          logger,
+		echoRouter:      echoRouter,
+		avatarGenerator: &avatars.Generator{},
 	}
 	apiServer.routes()
 
@@ -100,23 +102,28 @@ func StartServer() {
 	select {}
 }
 
-func (server *Server) getAvatarImageContext(context echo.Context) (*gg.Context, error) {
+func (server *Server) getRNGFromRequest(context echo.Context) (*rand.Rand, int64) {
+	name := context.Param("name")
+	seed := int64(rand.Intn(2147483647))
+	if name != "" {
+		seed = int64(server.hashString(name))
+	}
+
+	rng := rand.New(rand.NewSource(seed))
+	return rng, seed
+}
+
+func (server *Server) getSizeFromRequest(context echo.Context) int {
 	size, err := strconv.Atoi(context.Param("size"))
 	if err != nil {
-		return nil, context.Blob(http.StatusBadRequest, "application/json", []byte(`{"error": "invalid size"}`))
+		return -1
 	}
 
 	if size < minSize || size > maxSize {
-		return nil, context.Blob(http.StatusBadRequest, "application/json", []byte(`{"error": "invalid size"}`))
+		return -1
 	}
 
-	imageContext := gg.NewContext(size, size)
-
-	imageContext.DrawCircle(float64(size/2), float64(size/2), float64(size/2))
-	imageContext.Clip()
-	imageContext.AsMask()
-
-	return imageContext, nil
+	return size
 }
 
 func (server *Server) hashString(s string) uint32 {

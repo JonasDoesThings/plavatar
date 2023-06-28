@@ -32,6 +32,8 @@ func CacheMiddleware(avatarCache *cache.Cache) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(context echo.Context) error {
 			if cachedAvatar, found := avatarCache.Get(context.Request().RequestURI); found {
+				context.Response().Header().Add("Cache-Status", "HIT")
+				context.Response().WriteHeader(http.StatusOK)
 				return context.Blob(http.StatusOK, "image/png", cachedAvatar.([]byte))
 			}
 
@@ -46,7 +48,8 @@ func CacheMiddleware(avatarCache *cache.Cache) echo.MiddlewareFunc {
 			}
 
 			// Check if the response is valid, AND if the response has a provided seed (:name). Don't cache random generated ones
-			if writer.statusCode == http.StatusOK && context.Response().Header().Get("Content-Type") == "image/png" && strings.Contains(context.Path(), ":name") {
+			contentType := context.Response().Header().Get("Content-Type")
+			if writer.statusCode == http.StatusOK && (contentType == "image/png" || contentType == "image/svg+xml") && strings.Contains(context.Path(), ":name") {
 				avatarCache.SetDefault(context.Request().RequestURI, resBody.Bytes())
 			}
 

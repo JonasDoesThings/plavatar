@@ -5,7 +5,7 @@ import (
 )
 
 func RandomRangeInt(rng *rand.Rand, min, max int) int {
-	return min + rng.Int()*(max-min)
+	return min + rng.Intn(max-min)
 }
 
 func RandomRangeFloat(rng *rand.Rand, min, max float64) float64 {
