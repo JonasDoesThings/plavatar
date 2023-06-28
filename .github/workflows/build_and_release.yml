@@ -33,7 +33,7 @@ jobs:
         path: artifacts/plavatar
 
     - name: Authenticate Docker
-      uses: docker/login-action@v1
+      uses: docker/login-action@v2
       with:
         registry: ghcr.io
         username: ${{ github.repository_owner }}
@@ -48,7 +48,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v4
       with:
-        images: '{{ env.IMAGE_REPOSITORY }}'
+        images: 'ghcr.io/{{ env.IMAGE_REPOSITORY }}'
 
     - name: Release Docker
       uses: docker/build-push-action@v4
