@@ -48,7 +48,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v4
       with:
-        images: 'ghcr.io/{{ env.IMAGE_REPOSITORY }}'
+        images: ghcr.io/{{ env.IMAGE_REPOSITORY }}
 
     - name: Release Docker
       uses: docker/build-push-action@v4
