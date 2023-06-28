@@ -21,10 +21,11 @@ func (server *Server) HandleGetSolidAvatar() echo.HandlerFunc {
 		size := imageContext.Image().Bounds().Max.X
 
 		name := context.Param("name")
-		var rng *rand.Rand
+		seed := int64(rand.Intn(2147483647))
 		if name != "" {
-			rng = rand.New(rand.NewSource(int64(server.hashString(name))))
+			seed = int64(server.hashString(name))
 		}
+		rng := rand.New(rand.NewSource(seed))
 
 		backgroundColor := utils.GetRandomColor(rng)
 		imageContext.SetColor(backgroundColor)
