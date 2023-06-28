@@ -7,6 +7,7 @@ import (
 	"math/rand"
 	"net/http"
 	"plavatar/internal/avatars"
+	"strconv"
 	"strings"
 )
 
@@ -25,6 +26,9 @@ func (server *Server) HandleGetAvatar(generatorFunc func(canvas *svg.SVG, rng *r
 			OutputShape: avatarShape,
 		})
 		svgCanvas.End()
+
+		context.Response().Header().Add("RngSeed", strconv.FormatInt(rngSeed, 10))
+		context.Response().WriteHeader(http.StatusOK)
 
 		if strings.ToLower(context.QueryParam("format")) == "svg" {
 			return context.Blob(http.StatusOK, "image/svg+xml", imageBuffer.Bytes())
