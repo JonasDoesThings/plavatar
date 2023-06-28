@@ -32,6 +32,8 @@ func CacheMiddleware(avatarCache *cache.Cache) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(context echo.Context) error {
 			if cachedAvatar, found := avatarCache.Get(context.Request().RequestURI); found {
+				context.Response().Header().Add("Cache-Status", "HIT")
+				context.Response().WriteHeader(http.StatusOK)
 				return context.Blob(http.StatusOK, "image/png", cachedAvatar.([]byte))
 			}
 
