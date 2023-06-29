@@ -1,16 +1,16 @@
 # Plavatar
 A stateless microservice that returns **pla**ceholder **avatar**s (=plavatars).
 
-![assets/demo.png](assets/demo.png)
+![assets/readme-demo.png](assets/readme-demo.png)
 
 ## API Endpoints
 * `baseurl:port/laughing/<size>/<name>`
 * `baseurl:port/smiley/<size>/<name>`
 * `baseurl:port/happy/<size>/<name>`
 * `baseurl:port/gradient/<size>/<name>`
-* `baseurl:port/pixel/<size>/<name>`
 * `baseurl:port/marble/<size>/<name>`
 * `baseurl:port/solid/<size>/<name>`
+* `baseurl:port/pixel/<size>/<name>` (*currently only available as square*)
 
 Without name:
 * `baseurl:port/laughing/<size>` and so on
