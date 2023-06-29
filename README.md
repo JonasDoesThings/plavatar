@@ -42,7 +42,7 @@ a config in the `config/` folder, nor you supply a path with `--config` the defa
     "max": 512
   },
   "webserver": {
-    "gzip": false,
+    "gzip": true,
     "http": {
       "enabled": true,
       "host": "0.0.0.0",
