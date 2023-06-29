@@ -37,7 +37,7 @@ func (generator *Generator) Laughing(canvas *svg.SVG, rng *rand.Rand, rngSeed in
 	canvas.Arc(
 		leftEyePositionX+utils.RandomRangeInt(rng, 0, 1),
 		mouthPositionY,
-		150,
+		155,
 		200,
 		180+utils.RandomRangeInt(rng, -10, +10),
 		false,
