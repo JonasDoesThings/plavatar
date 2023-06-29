@@ -26,14 +26,14 @@ With query params:
 ### Query Params
 * `format`**optional**, either png (default) or svg. svg returns the raw svg
 * `shape` **optional**, either circle (default) or square.
-* 
 
-## Deployment
+## Configuration
+You can optionally supply a config file if you are not happy with the preset settings.  
 By the default the program looks for a config file at `<running_folder>/config/plavatar.json`. If you want to use an
 alternative location you can override this behaviour using the argument `--config <path_to_config>`. If there's neither
 a config in the `config/` folder, nor you supply a path with `--config` the default configuration will be used.
 
-## Default configuration file
+### Default configuration file
 
 ```json
 {
