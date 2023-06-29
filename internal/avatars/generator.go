@@ -51,7 +51,7 @@ func (generator *Generator) RasterizeSVGToPNG(svg io.Reader, imageSize int) (*by
 
 	icon.SetTarget(0, 0, CanvasSize, CanvasSize)
 	rgba := image.NewRGBA(image.Rect(0, 0, CanvasSize, CanvasSize))
-	icon.Draw(rasterx.NewDasher(imageSize, imageSize, scanFT.NewScannerFT(imageSize, imageSize, scanFT.NewRGBAPainter(rgba))), 1)
+	icon.Draw(rasterx.NewDasher(CanvasSize, CanvasSize, scanFT.NewScannerFT(CanvasSize, CanvasSize, scanFT.NewRGBAPainter(rgba))), 1)
 
 	if imageSize != CanvasSize {
 		scaledOutput := image.NewRGBA(image.Rect(0, 0, imageSize, imageSize))
