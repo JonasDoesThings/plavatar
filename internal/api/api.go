@@ -102,15 +102,20 @@ func StartServer() {
 	select {}
 }
 
-func (server *Server) getRNGFromRequest(context echo.Context) (*rand.Rand, int64) {
+func (server *Server) getRNGFromRequest(context echo.Context) (*rand.Rand, int64, string) {
 	name := context.Param("name")
-	seed := int64(rand.Intn(2147483647))
+	var rawSeed string
+	var seed int64
+
 	if name != "" {
-		seed = int64(server.hashString(name))
+		rawSeed = name
+	} else {
+		rawSeed = strconv.FormatInt(rand.Int63n(2147483647), 10)
 	}
 
+	seed = int64(server.hashString(rawSeed))
 	rng := rand.New(rand.NewSource(seed))
-	return rng, seed
+	return rng, seed, rawSeed
 }
 
 func (server *Server) getSizeFromRequest(context echo.Context) int {

@@ -7,7 +7,6 @@ import (
 	"math/rand"
 	"net/http"
 	"plavatar/internal/avatars"
-	"strconv"
 	"strings"
 )
 
@@ -15,7 +14,7 @@ func (server *Server) HandleGetAvatar(generatorFunc func(canvas *svg.SVG, rng *r
 	return func(context echo.Context) error {
 		imageBuffer := bytes.NewBuffer([]byte{})
 		svgCanvas := server.avatarGenerator.GetAvatarCanvas(imageBuffer)
-		rng, rngSeed := server.getRNGFromRequest(context)
+		rng, rngSeed, rawSeed := server.getRNGFromRequest(context)
 
 		avatarShape := avatars.Circle
 		if strings.ToLower(context.QueryParam("shape")) == "square" {
@@ -27,7 +26,7 @@ func (server *Server) HandleGetAvatar(generatorFunc func(canvas *svg.SVG, rng *r
 		})
 		svgCanvas.End()
 
-		context.Response().Header().Add("RngSeed", strconv.FormatInt(rngSeed, 10))
+		context.Response().Header().Add("RngSeed", rawSeed)
 		context.Response().WriteHeader(http.StatusOK)
 
 		if strings.ToLower(context.QueryParam("format")) == "svg" {
