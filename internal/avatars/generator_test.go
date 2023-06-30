@@ -74,3 +74,21 @@ func TestAvatarLaughing(t *testing.T) {
 		t.Error("hash missmatch. check if intentional and change hash accordingly.", hash)
 	}
 }
+
+// todo: check svg contents
+func TestAvatarSmileySVG(t *testing.T) {
+	_, rngSeed, err := avatarGenerator.GenerateAvatar(avatarGenerator.Smiley, &Options{
+		Name:         "6",
+		OutputSize:   256,
+		OutputFormat: SVG,
+		OutputShape:  Circle,
+	})
+
+	if err != nil {
+		t.Fatal("err != nil", err)
+	}
+
+	if rngSeed != "6" {
+		t.Fatal("rngSeed mismatch")
+	}
+}
