@@ -16,5 +16,5 @@ func (generator *Generator) Gradient(canvas *svg.SVG, rng *rand.Rand, rngSeed in
 	canvas.LinearGradient("bg", 0, 0, 100, 100, gradientColors)
 	canvas.DefEnd()
 
-	generator.DrawCanvasBackground(canvas, options)
+	DrawCanvasBackground(canvas, options)
 }

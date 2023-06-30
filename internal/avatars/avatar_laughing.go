@@ -18,7 +18,7 @@ func (generator *Generator) Laughing(canvas *svg.SVG, rng *rand.Rand, rngSeed in
 	canvas.LinearGradient("bg", 0, 0, 100, 100, gradientColors)
 	canvas.DefEnd()
 
-	generator.DrawCanvasBackground(canvas, options)
+	DrawCanvasBackground(canvas, options)
 
 	rightEyePositionY := -utils.RandomRangeInt(rng, 0, CanvasSize/6)
 	leftEyePositionY := -utils.RandomRangeInt(rng, 0, CanvasSize/6)

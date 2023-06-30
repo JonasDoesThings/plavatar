@@ -18,7 +18,7 @@ func (generator *Generator) Happy(canvas *svg.SVG, rng *rand.Rand, rngSeed int64
 	canvas.LinearGradient("bg", 0, 0, 100, 100, gradientColors)
 	canvas.DefEnd()
 
-	generator.DrawCanvasBackground(canvas, options)
+	DrawCanvasBackground(canvas, options)
 
 	eyePositionY := -utils.RandomRangeInt(rng, CanvasSize/6, CanvasSize/4)
 	rightEyePositionY := eyePositionY + utils.RandomRangeInt(rng, -CanvasSize/20, CanvasSize/20)

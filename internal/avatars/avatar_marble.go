@@ -16,5 +16,5 @@ func (generator *Generator) Marble(canvas *svg.SVG, rng *rand.Rand, rngSeed int6
 	canvas.RadialGradient("bg", 50, 50, 100, 50, 50, gradientColors)
 	canvas.DefEnd()
 
-	generator.DrawCanvasBackground(canvas, options)
+	DrawCanvasBackground(canvas, options)
 }
