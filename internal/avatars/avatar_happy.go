@@ -9,16 +9,16 @@ import (
 )
 
 func (generator *Generator) Happy(canvas *svg.SVG, rng *rand.Rand, rngSeed int64, options *Options) {
-	startColor := utils.GetRandomColorHex(rng)
+	startColor := utils.RandomColorHex(rng)
 	rng.Seed(rngSeed + 128)
-	stopColor := utils.GetRandomColorHex(rng)
+	stopColor := utils.RandomColorHex(rng)
 
 	canvas.Def()
 	gradientColors := []svg.Offcolor{{0, startColor, 1}, {100, stopColor, 1}}
 	canvas.LinearGradient("bg", 0, 0, 100, 100, gradientColors)
 	canvas.DefEnd()
 
-	generator.DrawCanvasBackground(canvas, options)
+	DrawCanvasBackground(canvas, options)
 
 	eyePositionY := -utils.RandomRangeInt(rng, CanvasSize/6, CanvasSize/4)
 	rightEyePositionY := eyePositionY + utils.RandomRangeInt(rng, -CanvasSize/20, CanvasSize/20)

@@ -7,12 +7,12 @@ import (
 )
 
 func (generator *Generator) Solid(canvas *svg.SVG, rng *rand.Rand, rngSeed int64, options *Options) {
-	backgroundColor := utils.GetRandomColorHex(rng)
+	backgroundColor := utils.RandomColorHex(rng)
 
 	canvas.Def()
 	gradientColors := []svg.Offcolor{{0, backgroundColor, 1}}
 	canvas.LinearGradient("bg", 0, 0, 100, 100, gradientColors)
 	canvas.DefEnd()
 
-	generator.DrawCanvasBackground(canvas, options)
+	DrawCanvasBackground(canvas, options)
 }

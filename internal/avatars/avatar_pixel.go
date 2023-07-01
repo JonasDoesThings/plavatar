@@ -18,7 +18,7 @@ func (generator *Generator) Pixels(canvas *svg.SVG, rng *rand.Rand, rngSeed int6
 	canvas.Group("clip-path=\"url(#clip)\"")
 	for x := -CanvasSize / 2; x < CanvasSize/2; x += pixels {
 		for y := -CanvasSize / 2; y < CanvasSize/2; y += pixels {
-			canvas.Rect(x, y, pixels, pixels, "fill:"+utils.GetRandomColorHex(rng))
+			canvas.Rect(x, y, pixels, pixels, "fill:"+utils.RandomColorHex(rng))
 		}
 	}
 

@@ -9,16 +9,16 @@ import (
 )
 
 func (generator *Generator) Laughing(canvas *svg.SVG, rng *rand.Rand, rngSeed int64, options *Options) {
-	startColor := utils.GetRandomColorHex(rng)
+	startColor := utils.RandomColorHex(rng)
 	rng.Seed(rngSeed + 128)
-	stopColor := utils.GetRandomColorHex(rng)
+	stopColor := utils.RandomColorHex(rng)
 
 	canvas.Def()
 	gradientColors := []svg.Offcolor{{0, startColor, 1}, {100, stopColor, 1}}
 	canvas.LinearGradient("bg", 0, 0, 100, 100, gradientColors)
 	canvas.DefEnd()
 
-	generator.DrawCanvasBackground(canvas, options)
+	DrawCanvasBackground(canvas, options)
 
 	rightEyePositionY := -utils.RandomRangeInt(rng, 0, CanvasSize/6)
 	leftEyePositionY := -utils.RandomRangeInt(rng, 0, CanvasSize/6)
@@ -37,7 +37,7 @@ func (generator *Generator) Laughing(canvas *svg.SVG, rng *rand.Rand, rngSeed in
 	canvas.Arc(
 		leftEyePositionX+utils.RandomRangeInt(rng, 0, 1),
 		mouthPositionY,
-		150,
+		155,
 		200,
 		180+utils.RandomRangeInt(rng, -10, +10),
 		false,

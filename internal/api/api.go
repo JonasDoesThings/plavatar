@@ -8,8 +8,6 @@ import (
 	"github.com/patrickmn/go-cache"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
-	"hash/fnv"
-	"math/rand"
 	"os"
 	"plavatar/internal/avatars"
 	"plavatar/internal/caching"
@@ -102,17 +100,6 @@ func StartServer() {
 	select {}
 }
 
-func (server *Server) getRNGFromRequest(context echo.Context) (*rand.Rand, int64) {
-	name := context.Param("name")
-	seed := int64(rand.Intn(2147483647))
-	if name != "" {
-		seed = int64(server.hashString(name))
-	}
-
-	rng := rand.New(rand.NewSource(seed))
-	return rng, seed
-}
-
 func (server *Server) getSizeFromRequest(context echo.Context) int {
 	size, err := strconv.Atoi(context.Param("size"))
 	if err != nil {
@@ -124,13 +111,4 @@ func (server *Server) getSizeFromRequest(context echo.Context) int {
 	}
 
 	return size
-}
-
-func (server *Server) hashString(s string) uint32 {
-	h := fnv.New32a()
-	_, err := h.Write([]byte(s))
-	if err != nil {
-		server.logger.Error("error hashing ", s, err)
-	}
-	return h.Sum32()
 }

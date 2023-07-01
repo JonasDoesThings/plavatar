@@ -1,16 +1,16 @@
 # Plavatar
 A stateless microservice that returns **pla**ceholder **avatar**s (=plavatars).
 
-![assets/demo.png](assets/demo.png)
+![assets/readme-demo.png](assets/readme-demo.png)
 
 ## API Endpoints
 * `baseurl:port/laughing/<size>/<name>`
 * `baseurl:port/smiley/<size>/<name>`
 * `baseurl:port/happy/<size>/<name>`
 * `baseurl:port/gradient/<size>/<name>`
-* `baseurl:port/pixel/<size>/<name>`
 * `baseurl:port/marble/<size>/<name>`
 * `baseurl:port/solid/<size>/<name>`
+* `baseurl:port/pixel/<size>/<name>` (*currently only available as square*)
 
 Without name:
 * `baseurl:port/laughing/<size>` and so on
@@ -26,14 +26,17 @@ With query params:
 ### Query Params
 * `format`**optional**, either png (default) or svg. svg returns the raw svg
 * `shape` **optional**, either circle (default) or square.
-* 
 
-## Deployment
+## **If possible use format=SVG.** 
+Not only is format=SVG extremely faster, it also saves you a lot of bandwidth and latency. (A generated SVG is only ~2% the size of a 512px PNG)
+
+## Configuration
+You can optionally supply a config file if you are not happy with the preset settings.  
 By the default the program looks for a config file at `<running_folder>/config/plavatar.json`. If you want to use an
 alternative location you can override this behaviour using the argument `--config <path_to_config>`. If there's neither
 a config in the `config/` folder, nor you supply a path with `--config` the default configuration will be used.
 
-## Default configuration file
+### Default configuration file
 
 ```json
 {
@@ -42,7 +45,7 @@ a config in the `config/` folder, nor you supply a path with `--config` the defa
     "max": 512
   },
   "webserver": {
-    "gzip": false,
+    "gzip": true,
     "http": {
       "enabled": true,
       "host": "0.0.0.0",
