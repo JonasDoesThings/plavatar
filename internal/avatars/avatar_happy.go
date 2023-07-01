@@ -9,9 +9,9 @@ import (
 )
 
 func (generator *Generator) Happy(canvas *svg.SVG, rng *rand.Rand, rngSeed int64, options *Options) {
-	startColor := utils.GetRandomColorHex(rng)
+	startColor := utils.RandomColorHex(rng)
 	rng.Seed(rngSeed + 128)
-	stopColor := utils.GetRandomColorHex(rng)
+	stopColor := utils.RandomColorHex(rng)
 
 	canvas.Def()
 	gradientColors := []svg.Offcolor{{0, startColor, 1}, {100, stopColor, 1}}
