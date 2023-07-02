@@ -6,10 +6,14 @@ import (
 )
 
 func RandomColorHex(rng *rand.Rand) string {
-	return fmt.Sprintf("#%02X%02X%02X", rng.Intn(256), rng.Intn(256), rng.Intn(256))
+	// rng.Intn(256) would be correct, since n is exclusive, but to not change all previously generated avatars
+	// using the same seed, we will keep this fault in.
+	return fmt.Sprintf("#%02X%02X%02X", rng.Intn(255), rng.Intn(255), rng.Intn(255))
 }
 
 func RandomRangeInt(rng *rand.Rand, min, max int) int {
+	// rng.Intn(max-min+1) would be correct, since n is exclusive, but to not change all previously generated avatars
+	// using the same seed, we will keep this fault in.
 	return min + rng.Intn(max-min)
 }
 
