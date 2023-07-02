@@ -6,7 +6,7 @@ import (
 )
 
 func RandomColorHex(rng *rand.Rand) string {
-	return fmt.Sprintf("#%02X%02X%02X", rng.Intn(255), rng.Intn(255), rng.Intn(255))
+	return fmt.Sprintf("#%02X%02X%02X", rng.Intn(256), rng.Intn(256), rng.Intn(256))
 }
 
 func RandomRangeInt(rng *rand.Rand, min, max int) int {
