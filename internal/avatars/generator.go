@@ -18,8 +18,7 @@ import (
 
 const CanvasSize = 512
 
-type Generator struct {
-}
+type Generator struct{}
 
 type Shape = int
 
