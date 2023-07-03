@@ -92,3 +92,33 @@ func TestAvatarSmileySVG(t *testing.T) {
 		t.Fatal("rngSeed mismatch")
 	}
 }
+
+func BenchmarkAvatarSmileyPNG(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_, _, err := avatarGenerator.GenerateAvatar(avatarGenerator.Smiley, &Options{
+			Name:         "6",
+			OutputSize:   512,
+			OutputFormat: PNG,
+			OutputShape:  Circle,
+		})
+
+		if err != nil {
+			b.Fatal(err)
+		}
+	}
+}
+
+func BenchmarkAvatarSmileySVG(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_, _, err := avatarGenerator.GenerateAvatar(avatarGenerator.Smiley, &Options{
+			Name:         "6",
+			OutputSize:   512,
+			OutputFormat: SVG,
+			OutputShape:  Circle,
+		})
+
+		if err != nil {
+			b.Fatal(err)
+		}
+	}
+}
