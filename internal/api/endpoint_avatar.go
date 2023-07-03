@@ -34,7 +34,7 @@ func (server *Server) HandleGetAvatar(generatorFunc func(canvas *svg.SVG, rng *r
 			OutputShape:  outputShape,
 		})
 
-		context.Response().Header().Add("RngSeed", rngSeed)
+		context.Response().Header().Add("Rng-Seed", rngSeed)
 		context.Response().WriteHeader(http.StatusOK)
 
 		if err != nil {
