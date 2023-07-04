@@ -75,6 +75,8 @@ a config in the `config/` folder, nor you supply a path with `--config` the defa
 ```
 
 ## Testing
+To run the go tests, use `go test -v ./...` in the root directory of the project.
+
 To generate a self-signed certificate for testing purposes you can
 use `openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out testing.crt -keyout testing.key`
 
