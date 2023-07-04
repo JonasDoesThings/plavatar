@@ -35,7 +35,6 @@ func (server *Server) HandleGetAvatar(generatorFunc func(canvas *svg.SVG, rng *r
 		})
 
 		context.Response().Header().Add("Rng-Seed", rngSeed)
-		context.Response().WriteHeader(http.StatusOK)
 
 		if err != nil {
 			return context.Blob(http.StatusInternalServerError, "application/json", []byte(err.Error()))
