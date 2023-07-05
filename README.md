@@ -1,7 +1,7 @@
 # Plavatar
 A stateless microservice that returns **pla**ceholder **avatar**s (=plavatars).
 
-![assets/readme-demo.png](assets/readme-demo.png)
+![docs/assets/readme-demo.png](docs/assets/readme-demo.png)
 
 ## API Endpoints
 * `baseurl:port/laughing/<size>/<name>`
