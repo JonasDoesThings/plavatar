@@ -1,4 +1,4 @@
-package zaputils
+package utils
 
 import (
 	"github.com/labstack/echo/v4"

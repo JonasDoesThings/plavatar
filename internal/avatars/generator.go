@@ -18,8 +18,7 @@ import (
 
 const CanvasSize = 512
 
-type Generator struct {
-}
+type Generator struct{}
 
 type Shape = int
 
@@ -118,15 +117,15 @@ func (generator *Generator) GenerateAvatar(generatorFunc func(canvas *svg.SVG, r
 		return nil, rawSeed, err
 	}
 
+	if generatorOptions.OutputSize < 1 {
+		return nil, rawSeed, errors.New(`{"error": "invalid size"}`)
+	}
+
 	generatorFunc(svgCanvas, rng, rngSeed, generatorOptions)
 	svgCanvas.End()
 
 	if generatorOptions.OutputFormat == SVG {
 		return imageBuffer, rawSeed, nil
-	}
-
-	if generatorOptions.OutputSize < 1 {
-		return nil, rawSeed, errors.New(`{"error": "invalid size"}`)
 	}
 
 	pngBuffer, err := RasterizeSVGToPNG(imageBuffer, generatorOptions.OutputSize)

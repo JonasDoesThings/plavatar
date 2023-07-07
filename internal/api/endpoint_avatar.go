@@ -18,8 +18,10 @@ func (server *Server) HandleGetAvatar(generatorFunc func(canvas *svg.SVG, rng *r
 		}
 
 		outputFormat := avatars.PNG
+		mimeType := "image/png"
 		if strings.ToLower(context.QueryParam("format")) == "svg" {
 			outputFormat = avatars.SVG
+			mimeType = "image/svg+xml"
 		}
 
 		outputShape := avatars.Circle
@@ -34,13 +36,12 @@ func (server *Server) HandleGetAvatar(generatorFunc func(canvas *svg.SVG, rng *r
 			OutputShape:  outputShape,
 		})
 
-		context.Response().Header().Add("RngSeed", rngSeed)
-		context.Response().WriteHeader(http.StatusOK)
+		context.Response().Header().Add("Rng-Seed", rngSeed)
 
 		if err != nil {
 			return context.Blob(http.StatusInternalServerError, "application/json", []byte(err.Error()))
 		}
 
-		return context.Blob(http.StatusOK, "image/png", generatedAvatar.Bytes())
+		return context.Blob(http.StatusOK, mimeType, generatedAvatar.Bytes())
 	}
 }

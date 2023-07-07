@@ -11,7 +11,7 @@ import (
 	"os"
 	"plavatar/internal/avatars"
 	"plavatar/internal/caching"
-	"plavatar/pkg/zaputils"
+	"plavatar/internal/utils"
 	"strconv"
 )
 
@@ -24,7 +24,7 @@ type Server struct {
 var minSize, maxSize int
 
 func StartServer() {
-	logger := zaputils.InitLogger()
+	logger := utils.InitLogger()
 
 	var configLocation = flag.String("config", "", "config file location")
 	flag.Parse()
@@ -53,7 +53,7 @@ func StartServer() {
 
 	echoRouter := echo.New()
 	echoRouter.HideBanner = true
-	echoRouter.Use(zaputils.ZapLogger(logger))
+	echoRouter.Use(utils.ZapLogger(logger))
 	echoRouter.Use(middleware.Recover())
 
 	if viper.GetBool("webserver.gzip") {
