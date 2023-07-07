@@ -1,4 +1,4 @@
-package zaputils
+package utils
 
 import (
 	"fmt"

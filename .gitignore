@@ -1,3 +1,5 @@
 running/
 .idea/
 .DS_STORE/
+artifacts/
+*.prof

@@ -3,29 +3,28 @@ package api
 import (
 	"bufio"
 	"flag"
-	"github.com/fogleman/gg"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/patrickmn/go-cache"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
-	"hash/fnv"
-	"net/http"
 	"os"
+	"plavatar/internal/avatars"
 	"plavatar/internal/caching"
-	"plavatar/pkg/zaputils"
+	"plavatar/internal/utils"
 	"strconv"
 )
 
 type Server struct {
-	logger     *zap.SugaredLogger
-	echoRouter *echo.Echo
+	logger          *zap.SugaredLogger
+	echoRouter      *echo.Echo
+	avatarGenerator *avatars.Generator
 }
 
 var minSize, maxSize int
 
 func StartServer() {
-	logger := zaputils.InitLogger()
+	logger := utils.InitLogger()
 
 	var configLocation = flag.String("config", "", "config file location")
 	flag.Parse()
@@ -54,7 +53,7 @@ func StartServer() {
 
 	echoRouter := echo.New()
 	echoRouter.HideBanner = true
-	echoRouter.Use(zaputils.ZapLogger(logger))
+	echoRouter.Use(utils.ZapLogger(logger))
 	echoRouter.Use(middleware.Recover())
 
 	if viper.GetBool("webserver.gzip") {
@@ -70,8 +69,9 @@ func StartServer() {
 	}
 
 	apiServer := Server{
-		logger:     logger,
-		echoRouter: echoRouter,
+		logger:          logger,
+		echoRouter:      echoRouter,
+		avatarGenerator: &avatars.Generator{},
 	}
 	apiServer.routes()
 
@@ -100,30 +100,15 @@ func StartServer() {
 	select {}
 }
 
-func (server *Server) getAvatarImageContext(context echo.Context) (*gg.Context, error) {
+func (server *Server) getSizeFromRequest(context echo.Context) int {
 	size, err := strconv.Atoi(context.Param("size"))
 	if err != nil {
-		return nil, context.Blob(http.StatusBadRequest, "application/json", []byte(`{"error": "invalid size"}`))
+		return -1
 	}
 
 	if size < minSize || size > maxSize {
-		return nil, context.Blob(http.StatusBadRequest, "application/json", []byte(`{"error": "invalid size"}`))
+		return -1
 	}
 
-	imageContext := gg.NewContext(size, size)
-
-	imageContext.DrawCircle(float64(size/2), float64(size/2), float64(size/2))
-	imageContext.Clip()
-	imageContext.AsMask()
-
-	return imageContext, nil
-}
-
-func (server *Server) hashString(s string) uint32 {
-	h := fnv.New32a()
-	_, err := h.Write([]byte(s))
-	if err != nil {
-		server.logger.Error("error hashing ", s, err)
-	}
-	return h.Sum32()
+	return size
 }
