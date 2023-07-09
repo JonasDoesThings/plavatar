@@ -1,11 +1,11 @@
-package avatars
+package plavatar
 
 import (
 	"fmt"
 	svg "github.com/ajstarks/svgo"
+	"github.com/jonasdoesthings/plavatar/utils"
 	"math"
 	"math/rand"
-	"plavatar/internal/utils"
 )
 
 func (generator *Generator) Laughing(canvas *svg.SVG, rng *rand.Rand, rngSeed int64, options *Options) {

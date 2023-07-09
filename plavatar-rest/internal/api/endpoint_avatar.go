@@ -2,34 +2,34 @@ package api
 
 import (
 	svg "github.com/ajstarks/svgo"
+	"github.com/jonasdoesthings/plavatar"
 	"github.com/labstack/echo/v4"
 	"math/rand"
 	"net/http"
-	"plavatar/internal/avatars"
 	"strconv"
 	"strings"
 )
 
-func (server *Server) HandleGetAvatar(generatorFunc func(canvas *svg.SVG, rng *rand.Rand, rngSeed int64, options *avatars.Options)) echo.HandlerFunc {
+func (server *Server) HandleGetAvatar(generatorFunc func(canvas *svg.SVG, rng *rand.Rand, rngSeed int64, options *plavatar.Options)) echo.HandlerFunc {
 	return func(context echo.Context) error {
 		outputSize, err := strconv.Atoi(context.Param("size"))
 		if err != nil || outputSize < minSize || outputSize > maxSize {
 			return context.Blob(http.StatusBadRequest, "application/json", []byte(`{"error": "invalid size"}`))
 		}
 
-		outputFormat := avatars.PNG
+		outputFormat := plavatar.PNG
 		mimeType := "image/png"
 		if strings.ToLower(context.QueryParam("format")) == "svg" {
-			outputFormat = avatars.SVG
+			outputFormat = plavatar.SVG
 			mimeType = "image/svg+xml"
 		}
 
-		outputShape := avatars.Circle
+		outputShape := plavatar.Circle
 		if strings.ToLower(context.QueryParam("shape")) == "square" {
-			outputShape = avatars.Square
+			outputShape = plavatar.Square
 		}
 
-		generatedAvatar, rngSeed, err := server.avatarGenerator.GenerateAvatar(generatorFunc, &avatars.Options{
+		generatedAvatar, rngSeed, err := server.avatarGenerator.GenerateAvatar(generatorFunc, &plavatar.Options{
 			Name:         context.Param("name"),
 			OutputSize:   outputSize,
 			OutputFormat: outputFormat,

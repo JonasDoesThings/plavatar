@@ -1,8 +1,8 @@
 package main
 
 import (
+	"github.com/jonasdoesthings/plavatar/plavatar-rest/internal/api"
 	"github.com/spf13/viper"
-	"plavatar/internal/api"
 )
 
 func main() {

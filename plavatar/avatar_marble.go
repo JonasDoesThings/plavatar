@@ -1,9 +1,9 @@
-package avatars
+package plavatar
 
 import (
 	svg "github.com/ajstarks/svgo"
+	"github.com/jonasdoesthings/plavatar/utils"
 	"math/rand"
-	"plavatar/internal/utils"
 )
 
 func (generator *Generator) Marble(canvas *svg.SVG, rng *rand.Rand, rngSeed int64, options *Options) {
