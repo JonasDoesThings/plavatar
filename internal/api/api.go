@@ -3,15 +3,15 @@ package api
 import (
 	"bufio"
 	"flag"
+	"github.com/jonasdoesthings/plavatar/internal/avatars"
+	"github.com/jonasdoesthings/plavatar/internal/caching"
+	"github.com/jonasdoesthings/plavatar/internal/utils"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/patrickmn/go-cache"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"os"
-	"plavatar/internal/avatars"
-	"plavatar/internal/caching"
-	"plavatar/internal/utils"
 	"strconv"
 )
 

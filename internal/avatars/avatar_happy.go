@@ -3,9 +3,9 @@ package avatars
 import (
 	"fmt"
 	svg "github.com/ajstarks/svgo"
+	"github.com/jonasdoesthings/plavatar/internal/utils"
 	"math"
 	"math/rand"
-	"plavatar/internal/utils"
 )
 
 func (generator *Generator) Happy(canvas *svg.SVG, rng *rand.Rand, rngSeed int64, options *Options) {

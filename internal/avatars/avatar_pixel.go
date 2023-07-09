@@ -2,8 +2,8 @@ package avatars
 
 import (
 	svg "github.com/ajstarks/svgo"
+	"github.com/jonasdoesthings/plavatar/internal/utils"
 	"math/rand"
-	"plavatar/internal/utils"
 )
 
 // Pixels

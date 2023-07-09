@@ -2,10 +2,10 @@ package api
 
 import (
 	svg "github.com/ajstarks/svgo"
+	"github.com/jonasdoesthings/plavatar/internal/avatars"
 	"github.com/labstack/echo/v4"
 	"math/rand"
 	"net/http"
-	"plavatar/internal/avatars"
 	"strconv"
 	"strings"
 )
