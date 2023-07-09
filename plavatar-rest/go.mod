@@ -2,7 +2,7 @@ module github.com/jonasdoesthings/plavatar/plavatar-rest
 
 go 1.20
 
-replace github.com/jonasdoesthings/plavatar => /Users/kadse/Code/plavatar/plavatar
+replace github.com/jonasdoesthings/plavatar => ../plavatar
 
 require (
 	github.com/ajstarks/svgo v0.0.0-20211024235047-1546f124cd8b
