@@ -1,9 +1,9 @@
-package avatars
+package plavatar
 
 import (
 	"fmt"
 	svg "github.com/ajstarks/svgo"
-	"github.com/jonasdoesthings/plavatar/internal/utils"
+	"github.com/jonasdoesthings/plavatar/utils"
 	"math"
 	"math/rand"
 )

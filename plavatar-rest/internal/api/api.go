@@ -3,9 +3,9 @@ package api
 import (
 	"bufio"
 	"flag"
-	"github.com/jonasdoesthings/plavatar/internal/avatars"
-	"github.com/jonasdoesthings/plavatar/internal/caching"
-	"github.com/jonasdoesthings/plavatar/internal/utils"
+	"github.com/jonasdoesthings/plavatar"
+	"github.com/jonasdoesthings/plavatar/plavatar-rest/internal/caching"
+	"github.com/jonasdoesthings/plavatar/plavatar-rest/internal/utils"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/patrickmn/go-cache"
@@ -18,7 +18,7 @@ import (
 type Server struct {
 	logger          *zap.SugaredLogger
 	echoRouter      *echo.Echo
-	avatarGenerator *avatars.Generator
+	avatarGenerator *plavatar.Generator
 }
 
 var minSize, maxSize int
@@ -71,7 +71,7 @@ func StartServer() {
 	apiServer := Server{
 		logger:          logger,
 		echoRouter:      echoRouter,
-		avatarGenerator: &avatars.Generator{},
+		avatarGenerator: &plavatar.Generator{},
 	}
 	apiServer.routes()
 

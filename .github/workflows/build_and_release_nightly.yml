@@ -1,4 +1,4 @@
-name: Build And Release
+name: Build And Release plavatar-rest @ next
 
 on:
   push:
@@ -19,16 +19,18 @@ jobs:
     - name: Build
       run: |
         mkdir artifacts
-        CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -o artifacts/ plavatar/cmd/plavatar
+        cd plavatar-rest
+        CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -o ../artifacts/ ./...
 
     - name: Test
-      run: go test -v -cover ./...
+      run: |
+        find . -name go.mod -execdir go test -v ./... \;
 
     - name: Release Artifact
       uses: actions/upload-artifact@v2
       with:
         name: plavatar
-        path: artifacts/plavatar
+        path: artifacts/plavatar-rest
 
     - name: Authenticate Docker
       uses: docker/login-action@v2

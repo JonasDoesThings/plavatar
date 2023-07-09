@@ -1,4 +1,4 @@
-package avatars
+package plavatar
 
 import (
 	"bytes"
