@@ -41,7 +41,7 @@ type Options struct {
 	OutputShape  Shape
 }
 
-func GetAvatarCanvas(targetWriter io.Writer) *svg.SVG {
+func getAvatarCanvas(targetWriter io.Writer) *svg.SVG {
 	canvas := svg.New(targetWriter)
 	canvas.Startview(CanvasSize, CanvasSize, -CanvasSize/2, -CanvasSize/2, CanvasSize, CanvasSize)
 
@@ -81,7 +81,7 @@ func RasterizeSVGToPNG(svg io.Reader, imageSize int) (*bytes.Buffer, error) {
 	return outBuffer, nil
 }
 
-func HashString(s string) (int64, error) {
+func hashString(s string) (int64, error) {
 	h := fnv.New32a()
 	_, err := h.Write([]byte(s))
 	if err != nil {
@@ -90,7 +90,7 @@ func HashString(s string) (int64, error) {
 	return int64(h.Sum32()), nil
 }
 
-func GetRNGFromName(name string) (*rand.Rand, int64, string, error) {
+func getRNGFromName(name string) (*rand.Rand, int64, string, error) {
 	var rawSeed string
 	var seed int64
 
@@ -100,7 +100,7 @@ func GetRNGFromName(name string) (*rand.Rand, int64, string, error) {
 		rawSeed = strconv.FormatInt(rand.Int63n(2147483647), 10)
 	}
 
-	seed, err := HashString(rawSeed)
+	seed, err := hashString(rawSeed)
 	if err != nil {
 		return nil, -1, rawSeed, errors.New(`{"error": "hashing name"}`)
 	}
@@ -111,8 +111,8 @@ func GetRNGFromName(name string) (*rand.Rand, int64, string, error) {
 
 func (generator *Generator) GenerateAvatar(generatorFunc func(canvas *svg.SVG, rng *rand.Rand, rngSeed int64, options *Options), generatorOptions *Options) (*bytes.Buffer, string, error) {
 	imageBuffer := bytes.NewBuffer([]byte{})
-	svgCanvas := GetAvatarCanvas(imageBuffer)
-	rng, rngSeed, rawSeed, err := GetRNGFromName(generatorOptions.Name)
+	svgCanvas := getAvatarCanvas(imageBuffer)
+	rng, rngSeed, rawSeed, err := getRNGFromName(generatorOptions.Name)
 	if err != nil {
 		return nil, rawSeed, err
 	}
