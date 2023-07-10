@@ -23,15 +23,15 @@ type Generator struct{}
 type Shape = int
 
 const (
-	Circle Shape = iota
-	Square
+	ShapeCircle Shape = iota
+	ShapeSquare
 )
 
 type Format = int
 
 const (
-	PNG Format = iota
-	SVG
+	FormatPNG Format = iota
+	FormatSVG
 )
 
 type Options struct {
@@ -49,7 +49,7 @@ func GetAvatarCanvas(targetWriter io.Writer) *svg.SVG {
 }
 
 func DrawCanvasBackground(canvas *svg.SVG, options *Options) {
-	if options.OutputShape == Square {
+	if options.OutputShape == ShapeSquare {
 		canvas.Square(-CanvasSize/2, -CanvasSize/2, CanvasSize, "fill: url(#bg)")
 	} else {
 		canvas.Circle(0, 0, CanvasSize/2, "fill: url(#bg)")
@@ -124,7 +124,7 @@ func (generator *Generator) GenerateAvatar(generatorFunc func(canvas *svg.SVG, r
 	generatorFunc(svgCanvas, rng, rngSeed, generatorOptions)
 	svgCanvas.End()
 
-	if generatorOptions.OutputFormat == SVG {
+	if generatorOptions.OutputFormat == FormatSVG {
 		return imageBuffer, rawSeed, nil
 	}
 

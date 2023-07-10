@@ -17,8 +17,8 @@ func TestAvatarSolid(t *testing.T) {
 	generatedAvatar, rngSeed, err := avatarGenerator.GenerateAvatar(avatarGenerator.Solid, &Options{
 		Name:         "8",
 		OutputSize:   512,
-		OutputFormat: PNG,
-		OutputShape:  Square,
+		OutputFormat: FormatPNG,
+		OutputShape:  ShapeSquare,
 	})
 
 	if err != nil {
@@ -42,8 +42,8 @@ func TestAvatarLaughing(t *testing.T) {
 	generatedAvatar, rngSeed, err := avatarGenerator.GenerateAvatar(avatarGenerator.Laughing, &Options{
 		Name:         "6",
 		OutputSize:   256,
-		OutputFormat: PNG,
-		OutputShape:  Circle,
+		OutputFormat: FormatPNG,
+		OutputShape:  ShapeCircle,
 	})
 
 	if err != nil {
@@ -80,8 +80,8 @@ func TestAvatarSmileySVG(t *testing.T) {
 	_, rngSeed, err := avatarGenerator.GenerateAvatar(avatarGenerator.Smiley, &Options{
 		Name:         "6",
 		OutputSize:   256,
-		OutputFormat: SVG,
-		OutputShape:  Circle,
+		OutputFormat: FormatSVG,
+		OutputShape:  ShapeCircle,
 	})
 
 	if err != nil {
@@ -98,8 +98,8 @@ func BenchmarkAvatarSmileyPNG(b *testing.B) {
 		_, _, err := avatarGenerator.GenerateAvatar(avatarGenerator.Smiley, &Options{
 			Name:         "6",
 			OutputSize:   512,
-			OutputFormat: PNG,
-			OutputShape:  Circle,
+			OutputFormat: FormatPNG,
+			OutputShape:  ShapeCircle,
 		})
 
 		if err != nil {
@@ -113,8 +113,8 @@ func BenchmarkAvatarSmileySVG(b *testing.B) {
 		_, _, err := avatarGenerator.GenerateAvatar(avatarGenerator.Smiley, &Options{
 			Name:         "6",
 			OutputSize:   512,
-			OutputFormat: SVG,
-			OutputShape:  Circle,
+			OutputFormat: FormatSVG,
+			OutputShape:  ShapeCircle,
 		})
 
 		if err != nil {
