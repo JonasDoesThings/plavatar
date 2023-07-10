@@ -17,16 +17,16 @@ func (server *Server) HandleGetAvatar(generatorFunc func(canvas *svg.SVG, rng *r
 			return context.Blob(http.StatusBadRequest, "application/json", []byte(`{"error": "invalid size"}`))
 		}
 
-		outputFormat := plavatar.PNG
+		outputFormat := plavatar.FormatPNG
 		mimeType := "image/png"
 		if strings.ToLower(context.QueryParam("format")) == "svg" {
-			outputFormat = plavatar.SVG
+			outputFormat = plavatar.FormatSVG
 			mimeType = "image/svg+xml"
 		}
 
-		outputShape := plavatar.Circle
+		outputShape := plavatar.ShapeCircle
 		if strings.ToLower(context.QueryParam("shape")) == "square" {
-			outputShape = plavatar.Square
+			outputShape = plavatar.ShapeSquare
 		}
 
 		generatedAvatar, rngSeed, err := server.avatarGenerator.GenerateAvatar(generatorFunc, &plavatar.Options{
@@ -39,7 +39,7 @@ func (server *Server) HandleGetAvatar(generatorFunc func(canvas *svg.SVG, rng *r
 		context.Response().Header().Add("Rng-Seed", rngSeed)
 
 		if err != nil {
-			return context.Blob(http.StatusInternalServerError, "application/json", []byte(err.Error()))
+			return context.JSONBlob(http.StatusInternalServerError, []byte(`{"error": "`+err.Error()+`"}`))
 		}
 
 		return context.Blob(http.StatusOK, mimeType, generatedAvatar.Bytes())
