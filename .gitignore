@@ -3,3 +3,4 @@ running/
 .DS_STORE/
 artifacts/
 *.prof
+*.iml
