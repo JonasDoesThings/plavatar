@@ -1,7 +1,7 @@
 # plavatar
 A library for generating **pla**ceholder **avatar**s (=plavatars).
 
-`plavatar`: A library for generating **pla**ceholder **avatar**s (=plavatars). 
+`plavatar`: A library for generating **pla**ceholder **avatar**s (=plavatars).  
 `plavatar-rest` A stateless REST microservice wrapping plavatar for you (docker image available) (https://github.com/jonasdoesthings/plavatar-rest)
 
 ![docs/assets/readme-demo.png](docs/assets/readme-demo.png)
