@@ -102,7 +102,7 @@ func getRNGFromName(name string) (*rand.Rand, int64, string, error) {
 
 	seed, err := hashString(rawSeed)
 	if err != nil {
-		return nil, -1, rawSeed, errors.New(`{"error": "hashing name"}`)
+		return nil, -1, rawSeed, errors.New("failed hashing name")
 	}
 
 	rng := rand.New(rand.NewSource(seed))
@@ -118,7 +118,7 @@ func (generator *Generator) GenerateAvatar(generatorFunc func(canvas *svg.SVG, r
 	}
 
 	if generatorOptions.OutputSize < 1 {
-		return nil, rawSeed, errors.New(`{"error": "invalid size"}`)
+		return nil, rawSeed, errors.New("invalid size")
 	}
 
 	generatorFunc(svgCanvas, rng, rngSeed, generatorOptions)
@@ -130,7 +130,7 @@ func (generator *Generator) GenerateAvatar(generatorFunc func(canvas *svg.SVG, r
 
 	pngBuffer, err := RasterizeSVGToPNG(imageBuffer, generatorOptions.OutputSize)
 	if err != nil {
-		return nil, rawSeed, errors.New(`{"error": "error encoding image to png"}`)
+		return nil, rawSeed, errors.New("error encoding image to png")
 	}
 
 	return pngBuffer, rawSeed, nil
