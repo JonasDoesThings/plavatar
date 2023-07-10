@@ -7,8 +7,8 @@ A library for generating **pla**ceholder **avatar**s (=plavatars).
 ![docs/assets/readme-demo.png](docs/assets/readme-demo.png)
 
 ## Install
-`go get -u github.com/jonasdoesthings/plavatar`  
-Then you can import the `"github.com/jonasdoesthings/plavatar"` package.
+`go get -u github.com/jonasdoesthings/plavatar/v3`  
+Then you can import the `"github.com/jonasdoesthings/plavatar/v3"` package.
 
 ## Usage
 Full Docs: https://pkg.go.dev/github.com/jonasdoesthings/plavatar
@@ -17,7 +17,7 @@ Basic Example with a built-in generatorFunc:
 ```go
 import (
     "bytes"
-    "github.com/jonasdoesthings/plavatar"
+    "github.com/jonasdoesthings/plavatar/v3"
 )
 
 func generateMyAvatar() (*bytes.Buffer, string) {
@@ -54,7 +54,7 @@ Basic example with a custom generatorFunc:
 import (
     "bytes"
     svg "github.com/ajstarks/svgo"
-    "github.com/jonasdoesthings/plavatar"
+    "github.com/jonasdoesthings/plavatar/v3"
     "math/rand"
 )
 
