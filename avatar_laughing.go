@@ -3,7 +3,7 @@ package plavatar
 import (
 	"fmt"
 	svg "github.com/ajstarks/svgo"
-	"github.com/jonasdoesthings/plavatar/utils"
+	"github.com/jonasdoesthings/plavatar/v3/utils"
 	"math"
 	"math/rand"
 )

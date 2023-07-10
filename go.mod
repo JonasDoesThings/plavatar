@@ -1,4 +1,4 @@
-module github.com/jonasdoesthings/plavatar
+module github.com/jonasdoesthings/plavatar/v3
 
 go 1.20
 
