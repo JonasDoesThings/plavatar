@@ -7,9 +7,8 @@ import (
 )
 
 // Pixels
-//
 // TODO:
-// Currently this outputs a wrong avatar in PNG / rasterized mode.
+// Currently this always outputs a [ShapeCircle] in PNG output mode.
 // oksvg does not support clippaths at the moment, so the whole square gets rasterized
 // see: https://github.com/srwiley/oksvg/issues/10
 func (generator *Generator) Pixels(canvas *svg.SVG, rng *rand.Rand, rngSeed int64, options *Options) {
