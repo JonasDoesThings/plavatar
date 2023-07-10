@@ -5,11 +5,21 @@
 ![docs/assets/readme-demo.png](docs/assets/readme-demo.png)
 
 ## plavatar
-A library for generating **pla**ceholder **avatar**s (=plavatars).
+A library for generating **pla**ceholder **avatar**s (=plavatars).  
+Full Docs: https://pkg.go.dev/github.com/jonasdoesthings/plavatar
+
+### Install
+`go get github.com/jonasdoesthings/plavatar`  
+Then you can import the `"github.com/jonasdoesthings/plavatar"` package.
 
 ### Usage
 Basic Example with a built-in generatorFunc:
 ```go
+import (
+    "bytes"
+    "github.com/jonasdoesthings/plavatar"
+)
+
 func generateMyAvatar() (*bytes.Buffer, string) {
     // Set-up a plavatar Generator instance
     avatarGenerator := plavatar.Generator{}
