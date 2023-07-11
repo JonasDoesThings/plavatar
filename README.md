@@ -11,7 +11,7 @@ A library for generating **pla**ceholder **avatar**s (=plavatars).
 Then you can import the `"github.com/jonasdoesthings/plavatar/v3"` package.
 
 ## Usage
-Full Docs: https://pkg.go.dev/github.com/jonasdoesthings/plavatar
+Full Docs: https://pkg.go.dev/github.com/jonasdoesthings/plavatar/v3
 
 Basic Example with a built-in generatorFunc:
 ```go
