@@ -7,7 +7,7 @@ A library for generating **pla**ceholder **avatar**s (=plavatars).
 ![docs/assets/readme-demo.png](docs/assets/readme-demo.png)
 
 ## Install
-`go get -u github.com/jonasdoesthings/plavatar/v3`  
+`go get github.com/jonasdoesthings/plavatar/v3`  
 Then you can import the `"github.com/jonasdoesthings/plavatar/v3"` package.
 
 ## Usage
