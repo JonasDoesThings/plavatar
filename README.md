@@ -85,5 +85,8 @@ func generateMyCustomAvatar() (*bytes.Buffer, string) {
 }
 ```
 
+## **If possible, use format=SVG.**
+Not only is format=SVG extremely faster, if you transfer the image to your user, SVG also saves you a lot of bandwidth and latency (A generated SVG is only ~2% the size of a 512px PNG)
+
 ## Testing
 To run the go tests, use `go test -v ./...` in the root directory of the project.
