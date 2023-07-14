@@ -170,7 +170,7 @@ func (generator *Generator) GenerateAvatar(generatorFunc func(canvas *svg.SVG, r
 		return nil, rawSeed, err
 	}
 
-	if generatorOptions.OutputSize < 1 {
+	if generatorOptions.OutputSize < 1 && generatorOptions.OutputFormat != FormatSVG {
 		return nil, rawSeed, errors.New("invalid size")
 	}
 
