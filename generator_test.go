@@ -35,6 +35,16 @@ func TestAvatarSolid(t *testing.T) {
 	if strings.ToLower(hash) != "90c34a5824d789ef4323fcd7b4fe5260ac68a95e843629a7e922c091d0c5445e" {
 		t.Error("hash missmatch. check if intentional and change hash accordingly.", hash)
 	}
+
+	_, _, err = avatarGenerator.GenerateAvatar(avatarGenerator.Solid, &Options{
+		Name:         "8",
+		OutputFormat: FormatPNG,
+		OutputShape:  ShapeSquare,
+	})
+
+	if err == nil {
+		t.Fatal("err should not be nil, no size for PNG passed")
+	}
 }
 
 func TestAvatarLaughing(t *testing.T) {
@@ -79,7 +89,6 @@ func TestAvatarLaughing(t *testing.T) {
 func TestAvatarSmileySVG(t *testing.T) {
 	_, rngSeed, err := avatarGenerator.GenerateAvatar(avatarGenerator.Smiley, &Options{
 		Name:         "6",
-		OutputSize:   256,
 		OutputFormat: FormatSVG,
 		OutputShape:  ShapeCircle,
 	})
