@@ -1,6 +1,6 @@
 running/
 .idea/
-.DS_STORE/
+.DS_STORE
 artifacts/
 *.prof
 *.iml
