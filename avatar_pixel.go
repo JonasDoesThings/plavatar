@@ -14,6 +14,14 @@ import (
 func (generator *Generator) Pixels(canvas *svg.SVG, rng *rand.Rand, rngSeed int64, options *Options) {
 	pixels := CanvasSize / 8
 
+	if options.OutputShape == ShapeCircle {
+		canvas.Def()
+		canvas.ClipPath("id=\"clip\"")
+		canvas.Circle(0, 0, CanvasSize/2)
+		canvas.ClipEnd()
+		canvas.DefEnd()
+	}
+
 	canvas.Group("clip-path=\"url(#clip)\"")
 	for x := -CanvasSize / 2; x < CanvasSize/2; x += pixels {
 		for y := -CanvasSize / 2; y < CanvasSize/2; y += pixels {
