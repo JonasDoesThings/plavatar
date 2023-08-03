@@ -84,6 +84,13 @@ func generateMyCustomAvatar() (*bytes.Buffer, string) {
 }
 ```
 
+## Using libvips for rasterization
+For improved performance (2.5x speed compared to built-in) and WEBP support you can use [libvips](https://github.com/libvips/libvips) for rasterization of SVGs to raster images.  
+
+This approach requires a reasonable up-to-date version of libvips to be installed in your system ([see govips/#dependencys for more information](https://github.com/davidbyttow/govips#dependencies)). 
+
+TODO: More Info
+
 ## **If possible, use format=SVG.**
 Not only is format=SVG extremely faster, if you transfer the image to your user, SVG also saves you a lot of bandwidth and latency (A generated SVG is only ~2% the size of a 512px PNG)
 

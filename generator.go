@@ -10,6 +10,7 @@ import (
 	"bytes"
 	"errors"
 	svg "github.com/ajstarks/svgo"
+	"github.com/davidbyttow/govips/v2/vips"
 	"github.com/srwiley/oksvg"
 	"github.com/srwiley/rasterx"
 	"github.com/srwiley/scanFT"
@@ -25,7 +26,9 @@ import (
 const CanvasSize = 512
 
 // A Generator is used to generate avatars using its [Generator.GenerateAvatar] method.
-type Generator struct{}
+type Generator struct {
+	UseVips *bool
+}
 
 // Shape the output image should have.
 type Shape = int
@@ -41,6 +44,7 @@ type Format = int
 const (
 	FormatPNG Format = iota
 	FormatSVG
+	FormatWEBP
 )
 
 // Options contains the generation instructions like seed (Name) or OutputSize, passed to the generation method
@@ -84,8 +88,20 @@ func DrawCanvasBackground(canvas *svg.SVG, options *Options) {
 	}
 }
 
-// RasterizeSVGToPNG rasterizes the SVG file to a PNG image of the given imageSize in the form of a [bytes.Buffer].
-func RasterizeSVGToPNG(svg io.Reader, imageSize int) (*bytes.Buffer, error) {
+// RasterizeSVG rasterizes the SVG file to a PNG image of the given imageSize in the form of a [bytes.Buffer].
+func (generator *Generator) RasterizeSVG(svg io.Reader, imageSize int, outputFormat Format) (*bytes.Buffer, error) {
+	if generator.UseVips != nil && *generator.UseVips {
+		return rasterizeSVGVips(svg, imageSize, outputFormat)
+	}
+
+	if outputFormat != FormatPNG {
+		return nil, errors.New("cannot rasterize to non-png format without vips")
+	}
+
+	return rasterizeSVGToPNGRasterX(svg, imageSize)
+}
+
+func rasterizeSVGToPNGRasterX(svg io.Reader, imageSize int) (*bytes.Buffer, error) {
 	icon, err := oksvg.ReadIconStream(svg, oksvg.WarnErrorMode)
 	if err != nil {
 		return nil, err
@@ -108,6 +124,37 @@ func RasterizeSVGToPNG(svg io.Reader, imageSize int) (*bytes.Buffer, error) {
 	}
 
 	return outBuffer, nil
+}
+
+func rasterizeSVGVips(svg io.Reader, imageSize int, outputFormat Format) (*bytes.Buffer, error) {
+	buf, err := io.ReadAll(svg)
+	if err != nil {
+		return nil, err
+	}
+
+	img, err := vips.LoadImageFromBuffer(buf, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if img.Width() != imageSize {
+		err := img.Resize(float64(imageSize)/float64(img.Width()), vips.KernelAuto)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	var imgBytes []byte
+	if outputFormat == FormatWEBP {
+		imgBytes, _, err = img.ExportWebp(nil)
+	} else {
+		imgBytes, _, err = img.ExportPng(nil)
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	return bytes.NewBuffer(imgBytes), nil
 }
 
 func hashString(s string) (int64, error) {
@@ -181,7 +228,7 @@ func (generator *Generator) GenerateAvatar(generatorFunc func(canvas *svg.SVG, r
 		return imageBuffer, rawSeed, nil
 	}
 
-	pngBuffer, err := RasterizeSVGToPNG(imageBuffer, generatorOptions.OutputSize)
+	pngBuffer, err := generator.RasterizeSVG(imageBuffer, generatorOptions.OutputSize, generatorOptions.OutputFormat)
 	if err != nil {
 		return nil, rawSeed, errors.New("error encoding image to png")
 	}
