@@ -27,7 +27,7 @@ const CanvasSize = 512
 
 // A Generator is used to generate avatars using its [Generator.GenerateAvatar] method.
 type Generator struct {
-	UseVips *bool
+	UseVips bool
 }
 
 // Shape the output image should have.
@@ -90,7 +90,7 @@ func DrawCanvasBackground(canvas *svg.SVG, options *Options) {
 
 // RasterizeSVG rasterizes the SVG file to a PNG image of the given imageSize in the form of a [bytes.Buffer].
 func (generator *Generator) RasterizeSVG(svg io.Reader, imageSize int, outputFormat Format) (*bytes.Buffer, error) {
-	if generator.UseVips != nil && *generator.UseVips {
+	if generator.UseVips {
 		return rasterizeSVGVips(svg, imageSize, outputFormat)
 	}
 
