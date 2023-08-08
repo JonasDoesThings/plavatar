@@ -91,6 +91,10 @@ func DrawCanvasBackground(canvas *svg.SVG, options *Options) {
 // RasterizeSVG rasterizes the SVG file to a PNG image of the given imageSize in the form of a [bytes.Buffer].
 func (generator *Generator) RasterizeSVG(svg io.Reader, imageSize int, outputFormat Format) (*bytes.Buffer, error) {
 	if generator.UseVips {
+		if vips.MajorVersion < 1 {
+			return nil, errors.New("vips not correctly loaded")
+		}
+
 		return rasterizeSVGVips(svg, imageSize, outputFormat)
 	}
 
