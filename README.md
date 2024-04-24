@@ -72,7 +72,6 @@ func generateMyCustomAvatar() (*bytes.Buffer, string) {
     avatarGenerator := plavatar.Generator{}
     options := &plavatar.Options{
         Name:         "exampleSeed",
-        OutputSize:   256,
         OutputFormat: plavatar.FormatSVG,
         OutputShape:  plavatar.ShapeSquare,
     }
