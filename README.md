@@ -89,3 +89,8 @@ Not only is format=SVG extremely faster, if you transfer the image to your user,
 
 ## Testing
 To run the go tests, use `go test -v ./...` in the root directory of the project.
+
+## Support my work
+<a href="https://www.buymeacoffee.com/JonasDoesThings" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>  
+
+If this library helps you, you can use https://www.buymeacoffee.com/JonasDoesThings to support my work.
